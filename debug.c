@@ -2,6 +2,15 @@
 
 #include <stdio.h>
 
+int constantInstruction(const char * name, Chunk_t * chunk, int offset)
+{
+    uint8_t constantIndex = chunk -> code[offset + 1];
+    printf("%-16s %4d '", name, constantIndex);
+    printValue(chunk -> constants.constants[constantIndex]);
+    printf("'\n");
+    return offset + 2;
+}
+
 int simpleInstruction(const char * name, int offset)
 {
     printf("%s\n", name);
@@ -26,8 +35,10 @@ int disassembleInstruction(Chunk_t * chunk, int offset)
     switch (instruction)
     {
     case OP_RETURN:
-        printf("OP_RETURN");
+        printf("OP_RETURN\n");
         break;
+    case OP_CONSTANT:
+        return constantInstruction("OP_CONSTANT", chunk, offset);
     default:
         printf("Unknown opcode %d\n", instruction);
         return offset + 1;
