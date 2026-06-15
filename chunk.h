@@ -19,9 +19,10 @@ typedef struct
   int capacity;
   OpCode_t * code;
   ValueArray_t constants;
+  int * lines;
 } Chunk_t;
 
 void initChunk(Chunk_t * chunk);
-void writeChunk(Chunk_t * chunk, OpCode_t opCode);
+void writeChunk(Chunk_t * chunk, OpCode_t opCode, int line);
 void freeChunk(Chunk_t * chunk);
 int addConstant(Chunk_t * chunk, Value_t value);

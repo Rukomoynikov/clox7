@@ -32,6 +32,14 @@ int disassembleInstruction(Chunk_t * chunk, int offset)
     printf("%04d ", offset);
     OpCode_t instruction = chunk -> code[offset];
 
+    if (offset > 0 && chunk -> lines[offset] == chunk -> lines[offset - 1])
+    {
+        printf("   | ");
+    } else
+    {
+        printf("%4d ", chunk -> lines[offset]);
+    }
+
     switch (instruction)
     {
     case OP_RETURN:
